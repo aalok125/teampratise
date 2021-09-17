@@ -24,16 +24,18 @@ class PostStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'post_title' => 'required|string',
-            'post_slug' => 'required|unique:post_slug',
-            'post_content' =>'required|string'
+            'post_title' => 'required|string|unique:posts',
+            'post_content' =>'required'
         ];
     }
 
     public function messages()
     {
         return [
-            '
+            'post_title.required' => 'Please Enter Post Title',
+            'post_title.unique' => 'Post Title Already in use. Please Enter New Title.'
+            'post_content' => 'Please Enter Post Contents'
+
         ];
     }
 }

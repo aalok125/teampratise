@@ -17,3 +17,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/users', 'Backend\UserController@index')->name('users.create');
+
+
+Route::resource ('/posts','PostController');
+
+
+
+
+
+/*Route::get('/posts','PostController@index')->name('posts.index');
+Route::get('/posts/create','PostController@create')->name('posts.create');
+Route::post('/posts/submit','PostController@submit')->name('posts.submit');
+Route::edit ('/');*/
+
+
+
