@@ -13,19 +13,19 @@ class PostController extends Controller
 
     public function create(){
         return view('post.create');
-    }   
+    }
 
      public function store(Request $request){
 
-            
+
     }
-     public function edit(Request $request User $user){
-        
+     public function edit(Request $request ,User $user){
+
     }
-     public function update(Request $request User $user){
-        
+     public function update(Request $request, User $user){
+
     }
      public function delete(){
-        
+
     }
 }
