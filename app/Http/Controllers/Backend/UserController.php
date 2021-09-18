@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CreateUserRequest;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,8 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        return view('Backend.User.index');
+        $data['users'] = User::all();
+        return view('Backend.User.index',$data);
     }
 
     /**
@@ -25,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-
+        return view('Backend.User.create');
     }
 
     /**
@@ -34,8 +36,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
+        $data['name']=$request->name;
+        $data['email']=$request->email;
+        $data['password']=$request->password;
+        $data['status']=1;
+        User::create($data);
+        return redirect()->back();
 
     }
 
@@ -56,9 +64,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('Backend.User.edit',compact('user'));
     }
 
     /**
