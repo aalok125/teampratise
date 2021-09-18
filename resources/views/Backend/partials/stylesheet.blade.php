@@ -12,4 +12,6 @@
 <link href="{{asset('backend/plugins/apex/apexcharts.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('backend/assets/css/dashboard/dash_2.css')}}" rel="stylesheet" type="text/css" />
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+  <link href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('backend/plugins/table/datatable/custom_dt_custom.css')}}" rel="stylesheet" type="text/css" />
 @stack('backend-stylesheet')

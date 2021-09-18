@@ -4,7 +4,7 @@ namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostStoreRequest extends FormRequest
+class PostUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class PostStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'post_title' => 'required|string|unique:posts',
+            'post_title' => 'required|string',
             'post_content' =>'required',
         ];
     }
@@ -33,7 +33,7 @@ class PostStoreRequest extends FormRequest
     {
         return [
             'post_title.required' => 'Please Enter Post Title',
-            'post_title.unique' => 'Post Title Already in use. Please Enter New Title.',
+            
             'post_content' => 'Please Enter Post Contents',
 
         ];

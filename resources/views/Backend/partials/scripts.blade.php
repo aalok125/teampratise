@@ -15,4 +15,25 @@
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 <script src="{{asset('backend/plugins/apex/apexcharts.min.js')}}"></script>
 <script src="{{asset('backend/assets/js/dashboard/dash_2.js')}}"></script>
+<script src="{{ asset('backendplugins/table/datatable/datatables.js') }}"></script>
+
+
+  @if (Session::has ('success'))
+  <script type="text/javascript">
+   Snackbar.show({
+        text: '{{Session::get('success')}}',
+        pos: 'top-right'
+    });
+    </script>
+    @endif
+
+    @if (Session::has('delete'))
+      <script type="text/javascript">
+       Snackbar.show({
+            text: '{{Session::get('delete')}}',
+            pos: 'top-right'
+        });
+    </script>
+    @endif
+
 @stack('backend-scripts')
