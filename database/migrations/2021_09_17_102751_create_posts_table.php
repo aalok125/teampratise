@@ -17,13 +17,12 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('post_title');
             $table->string('post_slug')->unique();
-            $table->tinyInteger('post_status')->default(1);//0 = Inactive 1=Active
-            $table->tinyInteger('is_published')->default(0);//0 =No 1=Yes 
+            $table->tinyInteger('post_status')->default(1);
+            $table->tinyInteger('is_published')->default(0);
             $table->text('post_content');
             $table->unsignedBigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/users', 'Backend\UserController@index')->name('users.create');
+Route::group(['namespace'=>'Backend','as'=>'backend.'], function() {
+    Route::resource('/users', 'UserController');
+});
 
 
 Route::resource ('/posts','PostController');

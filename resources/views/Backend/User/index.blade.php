@@ -1,8 +1,10 @@
 @extends('Backend.layouts.master')
 @push('backend-stylesheet')
     <!-- BEGIN PAGE LEVEL STYLES -->
-    <link href="{{asset('backend/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('backend/plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/datatables.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">
+    <!-- END PAGE LEVEL STYLES -->
     <!-- END PAGE LEVEL STYLES -->
 @endpush
 @section('content')
@@ -11,72 +13,58 @@
         <h3>Analytics Dashboard</h3>
     </div>
 </div>
-<div class="row">
-    <div id="flFormsGrid" class="col-lg-12 layout-spacing">
-        <div class="statbox widget box box-shadow">
-            <div class="widget-header">
-                <div class="row">
-                    <div class="col-xl-6 col-md-6 col-sm-6 col-6">
-                        <h4>Forms Grid</h4>
+<div id="content" class="main-content">
+    <div class="layout-px-spacing">
+        <div class="row layout-top-spacing" id="cancel-row">
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <a href="{{route('backend.users.create')}}" class="btn btn-primary float-right" style="margin-bottom: 20px" >+Add Users</a>
+                    <div class="table-responsive mb-4 mt-4">
+                        <table id="zero-config" class="table table-hover" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($users as $user)
+                            <tr>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>@if($user->status == 1)<span class="badge badge-success"> Active </span> @else <span class="badge badge-danger"> Inactive </span> @endif</td>
+                                <td style='white-space: nowrap'>
+                                    <a type="button" href="{{route('backend.users.edit',$user->id)}}" class="btn btn-primary" style="display: inline-block">Edit</a>
+                                </td>
+                            </tr>
+                            @empty
+                                No Users
+                            @endforelse
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-            <div class="widget-content widget-content-area">
-
-                <form action="{{route('posts.store')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-row mb-6">
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4">Name</label>
-                            <input type="text" class="form-control" id="inputEmail4" placeholder="Name" name="name">
-                            <span style="color: red;">{{$errors->first('name')}}</span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4">Phone No.</label>
-                            <input type="number" class="form-control" id="inputEmail4" placeholder="Phone number" name="phone_no">
-                        </div>
-
-                    </div>
-                    <div class="form-row mb-4">
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword4">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="password">
-                        </div>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address">
-                    </div>
-                    <div class="custom-file-container" data-upload-id="myFirstImage">
-                        <label>Upload (Single File) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
-                        <label class="custom-file-container__custom-file" >
-                            <input type="file" class="custom-file-container__custom-file__custom-file-input" accept="image/*" name="image">
-                            <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                            <span class="custom-file-container__custom-file__custom-file-control"></span>
-                        </label>
-                        <div class="custom-file-container__image-preview"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-3">Register</button>
-                </form>
             </div>
         </div>
     </div>
 </div>
 @endsection
 @push('backend-scripts')
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="{{asset('backend/assets/js/scrollspyNav.js')}}"></script>
-    <script src="{{asset('backend/plugins/file-upload/file-upload-with-preview.min.js')}}"></script>
-
-    <script>
-        //First upload
-        var firstUpload = new FileUploadWithPreview('myFirstImage')
-        //Second upload
-        var secondUpload = new FileUploadWithPreview('mySecondImage')
-    </script>
-    <!-- END PAGE LEVEL PLUGINS -->
+        <script src="{{asset('backend/plugins/table/datatable/datatables.js')}}"></script>
+        <script>
+            $('#zero-config').DataTable({
+                "oLanguage": {
+                    "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                    "sInfo": "Showing page _PAGE_ of _PAGES_",
+                    "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                    "sSearchPlaceholder": "Search...",
+                    "sLengthMenu": "Results :  _MENU_",
+                },
+                "stripeClasses": [],
+                "lengthMenu": [7, 10, 20, 50],
+                "pageLength": 7
+            });
+        </script>
 @endpush

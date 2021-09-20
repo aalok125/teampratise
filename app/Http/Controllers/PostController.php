@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Requests\Post\PostStoreRequest;
-use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Http\Request;
 use Session;
 
 
@@ -17,7 +17,7 @@ class PostController extends Controller
 
     public function create(){
         return view('backend.post.create');
-    }   
+    }
 
      public function store( PostStoreRequest $request){
         $post= new Post();
@@ -27,17 +27,15 @@ class PostController extends Controller
         $post->is_punlished = $request->get('is_published');
         $post->post_content = $request->get('post_content');
         $post->user_id = Auth()->id();
+         $post->save();
 
-        $post->save();
-        Session::flash ('success','Post Has Been Created Successfully.');
-        return redirect()->route('posts.index');
-            
     }
+   
 
     public function edit(Post $post){
-
         return view ('backend.post.edit',compact ('post'));
     }
+    
 
     public function update(PostUpdateRequest $request, Post $post){
         
@@ -48,10 +46,10 @@ class PostController extends Controller
         $post->post_content = $request->get('post_content');
         $post->user_id = Auth()->id();
         $post->save();
-        
         Session::flash('success','Post Updated successfully');
         return redirect()->route('posts.index');
     }
+     
 
    public function destroy(Post $post)
     {
