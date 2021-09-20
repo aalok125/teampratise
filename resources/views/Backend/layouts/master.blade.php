@@ -109,48 +109,11 @@
                         <li>
                             <a href="component_accordion.html"> Accordions  </a>
                         </li>
-                        <li>
-                            <a href="component_modal.html"> Modals </a>
-                        </li>
-                        <li>
-                            <a href="component_cards.html"> Cards </a>
-                        </li>
-                        <li>
-                            <a href="component_bootstrap_carousel.html">Carousel</a>
-                        </li>
-                        <li>
-                            <a href="component_blockui.html"> Block UI </a>
-                        </li>
-                        <li>
-                            <a href="component_countdown.html"> Countdown </a>
-                        </li>
-                        <li>
-                            <a href="component_counter.html"> Counter </a>
-                        </li>
-                        <li>
-                            <a href="component_sweetalert.html"> Sweet Alerts </a>
-                        </li>
-                        <li>
-                            <a href="component_timeline.html"> Timeline </a>
-                        </li>
+                        
                         <li>
                             <a href="component_snackbar.html"> Notifications </a>
                         </li>
-                        <li>
-                            <a href="component_session_timeout.html"> Session Timeout </a>
-                        </li>
-                        <li>
-                            <a href="component_media_object.html"> Media Object </a>
-                        </li>
-                        <li>
-                            <a href="component_list_group.html"> List Group </a>
-                        </li>
-                        <li>
-                            <a href="component_pricing_table.html"> Pricing Tables </a>
-                        </li>
-                        <li>
-                            <a href="component_lightbox.html"> Lightbox </a>
-                        </li>
+                        
                     </ul>
                 </li>
 
@@ -170,54 +133,11 @@
                         <li>
                             <a href="ui_avatar.html"> Avatar </a>
                         </li>
-                        <li>
-                            <a href="ui_badges.html"> Badges </a>
-                        </li>
-                        <li>
-                            <a href="ui_breadcrumbs.html"> Breadcrumbs </a>
-                        </li>
-                        <li>
-                            <a href="ui_buttons.html"> Buttons </a>
-                        </li>
-                        <li>
-                            <a href="ui_buttons_group.html"> Button Groups </a>
-                        </li>
-                        <li>
-                            <a href="ui_color_library.html"> Color Library </a>
-                        </li>
-                        <li>
-                            <a href="ui_dropdown.html"> Dropdown </a>
-                        </li>
-                        <li>
-                            <a href="ui_infobox.html"> Infobox </a>
-                        </li>
-                        <li>
-                            <a href="ui_jumbotron.html"> Jumbotron </a>
-                        </li>
-                        <li>
-                            <a href="ui_loader.html"> Loader </a>
-                        </li>
-                        <li>
-                            <a href="ui_pagination.html"> Pagination </a>
-                        </li>
-                        <li>
-                            <a href="ui_popovers.html"> Popovers </a>
-                        </li>
+                        
                         <li>
                             <a href="ui_progress_bar.html"> Progress Bar </a>
                         </li>
-                        <li>
-                            <a href="ui_search.html"> Search </a>
-                        </li>
-                        <li>
-                            <a href="ui_tooltips.html"> Tooltips </a>
-                        </li>
-                        <li>
-                            <a href="ui_treeview.html"> Treeview </a>
-                        </li>
-                        <li>
-                            <a href="ui_typography.html"> Typography </a>
-                        </li>
+                       
                     </ul>
                 </li>
 
@@ -242,33 +162,7 @@
                                 <li>
                                     <a href="table_dt_basic-dark.html"> Dark </a>
                                 </li>
-                                <li>
-                                    <a href="table_dt_ordering_sorting.html"> Order Sorting </a>
-                                </li>
-                                <li>
-                                    <a href="table_dt_multi-column_ordering.html"> Multi-Column </a>
-                                </li>
-                                <li>
-                                    <a href="table_dt_multiple_tables.html"> Multiple Tables</a>
-                                </li>
-                                <li>
-                                    <a href="table_dt_alternative_pagination.html"> Alt. Pagination</a>
-                                </li>
-                                <li>
-                                    <a href="table_dt_custom.html"> Custom </a>
-                                </li>
-                                <li>
-                                    <a href="table_dt_range_search.html"> Range Search </a>
-                                </li>
-                                <li>
-                                    <a href="table_dt_html5.html"> HTML5 Export </a>
-                                </li>
-                                <li>
-                                    <a href="table_dt_live_dom_ordering.html"> Live DOM ordering </a>
-                                </li>
-                                <li>
-                                    <a href="table_dt_miscellaneous.html"> Miscellaneous </a>
-                                </li>
+                                
                             </ul>
                         </li>
                     </ul>
@@ -286,57 +180,7 @@
                         <li>
                             <a href="form_bootstrap_basic.html"> Basic </a>
                         </li>
-                        <li>
-                            <a href="form_input_group_basic.html"> Input Group </a>
-                        </li>
-                        <li>
-                            <a href="form_layouts.html"> Layouts </a>
-                        </li>
-                        <li>
-                            <a href="form_validation.html"> Validation </a>
-                        </li>
-                        <li>
-                            <a href="form_input_mask.html"> Input Mask </a>
-                        </li>
-                        <li>
-                            <a href="form_bootstrap_select.html"> Bootstrap Select </a>
-                        </li>
-                        <li>
-                            <a href="form_select2.html"> Select2 </a>
-                        </li>
-                        <li>
-                            <a href="form_bootstrap_touchspin.html"> TouchSpin </a>
-                        </li>
-                        <li>
-                            <a href="form_maxlength.html"> Maxlength </a>
-                        </li>
-                        <li>
-                            <a href="form_checkbox_radio.html"> Checkbox &amp; Radio </a>
-                        </li>
-                        <li>
-                            <a href="form_switches.html"> Switches </a>
-                        </li>
-                        <li>
-                            <a href="form_wizard.html"> Wizards </a>
-                        </li>
-                        <li>
-                            <a href="form_fileupload.html"> File Upload </a>
-                        </li>
-                        <li>
-                            <a href="form_quill.html"> Quill Editor </a>
-                        </li>
-                        <li>
-                            <a href="form_markdown.html"> Markdown Editor </a>
-                        </li>
-                        <li>
-                            <a href="form_date_range_picker.html"> Date &amp; Range Picker </a>
-                        </li>
-                        <li>
-                            <a href="form_clipboard.html"> Clipboard </a>
-                        </li>
-                        <li>
-                            <a href="form_typeahead.html"> Typeahead </a>
-                        </li>
+                        
                     </ul>
                 </li>
 

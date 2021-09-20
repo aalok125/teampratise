@@ -26,9 +26,10 @@ Route::group (['prefix' => '/posts'],function (){
     Route::get('/','PostController@index')->name('posts.index');
     Route::get('/create','PostController@create')->name('posts.create');
     Route::post('/submit','PostController@store')->name('posts.store');
-    Route::get('/{post}/edit','PostController@edit')->name('posts.edit');
+    Route::get('/edit/{post}','PostController@edit')->name('posts.edit');
     Route::put('/update/{post}','PostController @update')->name('posts.update');
-    Route::delete('/delete','PostController@destroy')->name('posts.delete');
+    Route::get('/delete/{post}','PostController@destroy')->name('posts.delete');
+    Route::get('/undo-delete/{id}','PostController@undoDelete')->name('posts.undoDelete');
 });
 
 

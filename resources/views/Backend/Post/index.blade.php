@@ -4,6 +4,7 @@
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">
+    <link href="{{asset('backend/plugins/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
     <!-- END PAGE LEVEL STYLES -->
 @endpush
@@ -27,10 +28,11 @@
                                 <th>Post Slug</th>
                                 <th>Status</th>
                                 <th>Published</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($posts as $post)
+                            @foreach($posts as $post)
                             <tr>
                                 <td>{{$post->post_title}}</td>
                                 <td>{{$post->post_slug}}</td>
@@ -40,22 +42,26 @@
                                         <span class="badge badge-danger"> Inactive </span> 
                                     @endif
                                 </td>
-                                <td>@if($post->is_publlishe == 1)
+                                <td>@if($post->is_published == 1)
                                     <span class="badge badge-success"> Yes </span> 
                                     @else 
-                                    <span class="badge badge-danger"> Inactive </span> 
+                                    <span class="badge badge-danger"> No </span> 
                                     @endif
                                 </td>
-                                <!-- <td style='white-space: nowrap'>
-                                    <a type="button" href="{{route('posts.edit',$post->id)}}" class="btn btn-primary" style="display: inline-block">Edit</a>
+                                 @if( $post->deleted_at != Null)
+                                 <td>
+                                 <span class="badge badge-info">Deleted </span> 
+                                    <a type="button" href="{{route('posts.undoDelete',$post->id)}}" class="btn btn-primary" style="display: inline-block">UndoDelete</a>
                                 </td>
-                                <td style='white-space: nowrap'>
-                                    <a type="button" href="{{route('posts.detele',$post->id)}}" class="btn btn-primary" style="display: inline-block">Edit</a>
-                                </td> -->
-                            </tr>
-                            @empty
-                                No posts
-                            @endforelse
+                                 @else
+                                <td>
+                                    <a type="button" href="{{route('posts.edit',$post->id)}}" class="btn btn-primary" style="display: inline-block">Edit</a>
+                                    <a type="button" href="{{route('posts.delete',$post->id)}}" class="btn btn-danger" style="display: inline-block">Delete</a>
+                                </td>
+                              
+                                </tr>
+                                 @endif
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -66,7 +72,10 @@
 </div>
 @endsection
 @push('backend-scripts')
+
         <script src="{{asset('backend/plugins/table/datatable/datatables.js')}}"></script>
+        <script src="{{asset('backend/plugins/notification/snackbar/snackbar.min.js')}}"></script>
+        
         <script>
             $('#zero-config').DataTable({
                 "oLanguage": {
@@ -81,4 +90,6 @@
                 "pageLength": 7
             });
         </script>
+
+        
 @endpush

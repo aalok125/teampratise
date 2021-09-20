@@ -16,21 +16,22 @@
 <script src="{{asset('backend/plugins/apex/apexcharts.min.js')}}"></script>
 <script src="{{asset('backend/assets/js/dashboard/dash_2.js')}}"></script>
 <script src="{{ asset('backendplugins/table/datatable/datatables.js') }}"></script>
+<script src="{{asset('backend/plugins/notification/snackbar/snackbar.min.js')}}"></script>
 
 
-  @if (Session::has ('success'))
-  <script type="text/javascript">
-   Snackbar.show({
+    @if (Session::has ('success'))
+    <script type="text/javascript">
+    Snackbar.show({
         text: '{{Session::get('success')}}',
         pos: 'top-right'
     });
     </script>
     @endif
 
-    @if (Session::has('delete'))
+    @if (Session::has('delete.msg'))
       <script type="text/javascript">
        Snackbar.show({
-            text: '{{Session::get('delete')}}',
+            text: '{{Session::get('delete.msg')}}',
             pos: 'top-right'
         });
     </script>
