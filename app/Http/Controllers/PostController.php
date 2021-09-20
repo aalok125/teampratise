@@ -19,7 +19,7 @@ class PostController extends Controller
         return view('backend.post.create');
     }
 
-     public function store( PostStoreRequest $request){
+    public function store( PostStoreRequest $request){
         $post= new Post();
         $post->post_title =  $request->get('post_title');
         $post->post_slug = str_slug ($request->get('post_title'));

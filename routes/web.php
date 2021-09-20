@@ -21,16 +21,15 @@ Route::group(['namespace'=>'Backend','as'=>'backend.'], function() {
 });
 
 
-Route::resource ('/posts','PostController');
 
-
-
-
-
-/*Route::get('/posts','PostController@index')->name('posts.index');
-Route::get('/posts/create','PostController@create')->name('posts.create');
-Route::post('/posts/submit','PostController@submit')->name('posts.submit');
-Route::edit ('/');*/
+Route::group (['prefix' => '/posts'],function (){
+    Route::get('/','PostController@index')->name('posts.index');
+    Route::get('/create','PostController@create')->name('posts.create');
+    Route::post('/submit','PostController@store')->name('posts.store');
+    Route::get('/{post}/edit','PostController@edit')->name('posts.edit');
+    Route::put('/update/{post}','PostController @update')->name('posts.update');
+    Route::delete('/delete','PostController@destroy')->name('posts.delete');
+});
 
 
 
