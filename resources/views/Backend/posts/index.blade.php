@@ -19,7 +19,8 @@
         <div class="row layout-top-spacing" id="cancel-row">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <a href="{{route('posts.create')}}" class="btn btn-primary float-right" style="margin-bottom: 20px">Create Post</a>
+                    <a href="{{route('posts.create')}}" class="btn btn-warning btn-rounded float-right mr-3 " style="margin-bottom: 20px">Create Post</a>
+                    <a href="{{route('posts.trash')}}" class="btn btn-warning  btn-rounded float-right mr-2 " style="margin-bottom: 20px">Trash Post</a>
                     <div class="table-responsive mb-4 mt-4">
                         <table id="zero-config" class="table table-hover" style="width:100%">
                             <thead>
@@ -28,6 +29,7 @@
                                 <th>Post Slug</th>
                                 <th>Status</th>
                                 <th>Published</th>
+                                <th>Created By</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -48,19 +50,15 @@
                                     <span class="badge badge-danger"> No </span> 
                                     @endif
                                 </td>
-                                 @if( $post->deleted_at != Null)
-                                 <td>
-                                 <span class="badge badge-info">Deleted </span> 
-                                    <a type="button" href="{{route('posts.undoDelete',$post->id)}}" class="btn btn-primary" style="display: inline-block">UndoDelete</a>
-                                </td>
-                                 @else
+                                <td>{{ $post->user->name}}</td>
+                                 
                                 <td>
                                     <a type="button" href="{{route('posts.edit',$post->id)}}" class="btn btn-primary" style="display: inline-block">Edit</a>
                                     <a type="button" href="{{route('posts.delete',$post->id)}}" class="btn btn-danger" style="display: inline-block">Delete</a>
                                 </td>
                               
                                 </tr>
-                                 @endif
+                                
                             @endforeach
                             </tbody>
                         </table>
@@ -74,7 +72,7 @@
 @push('backend-scripts')
 
         <script src="{{asset('backend/plugins/table/datatable/datatables.js')}}"></script>
-        <script src="{{asset('backend/plugins/notification/snackbar/snackbar.min.js')}}"></script>
+        
         
         <script>
             $('#zero-config').DataTable({

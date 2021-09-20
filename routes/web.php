@@ -30,6 +30,7 @@ Route::group (['prefix' => '/posts'],function (){
     Route::put('/update/{post}','PostController @update')->name('posts.update');
     Route::get('/delete/{post}','PostController@destroy')->name('posts.delete');
     Route::get('/undo-delete/{id}','PostController@undoDelete')->name('posts.undoDelete');
+    Route::get('/trash-posts','PostController@trashPost')->name('posts.trash');
 });
 
 

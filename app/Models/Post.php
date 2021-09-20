@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\User;
+
 
 class Post extends Model
 {
@@ -13,6 +15,6 @@ class Post extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(User::class);
     }
 }
