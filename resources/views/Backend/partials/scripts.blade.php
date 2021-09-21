@@ -13,9 +13,9 @@
 <!-- END GLOBAL MANDATORY SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-<script src="{{asset('backend/plugins/apex/apexcharts.min.js')}}"></script>
+<!-- <script src="{{asset('backend/plugins/apex/apexcharts.min.js')}}"></script> -->
 <script src="{{asset('backend/assets/js/dashboard/dash_2.js')}}"></script>
-<script src="{{ asset('backendplugins/table/datatable/datatables.js') }}"></script>
+<script src="{{ asset('backend/plugins/table/datatable/datatables.js') }}"></script>
 <script src="{{asset('backend/plugins/notification/snackbar/snackbar.min.js')}}"></script>
 
 

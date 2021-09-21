@@ -34,7 +34,7 @@ class PostStoreRequest extends FormRequest
         return [
             'post_title.required' => 'Please Enter Post Title',
             'post_title.unique' => 'Post Title Already in use. Please Enter New Title.',
-            'post_content' => 'Please Enter Post Contents',
+            'post_content.required' => 'Please Enter Post Contents',
 
         ];
     }

@@ -10,16 +10,21 @@
 @endpush
 @section('content')
 <div class="page-header">
-    <div class="page-title">
-        <h3>Trash Posts</h3>
-    </div>
+    <nav class="breadcrumb-one" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('posts.index')}}">Posts</a></li>
+            <li class="breadcrumb-item active">Trash Posts</li>
+            
+        </ol>
+    </nav>
 </div>
 <div id="content" class="main-content">
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing" id="cancel-row">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <a href="{{route('posts.create')}}" class="btn btn-warning btn-rounded float-right mr-3" style="margin-bottom: 20px">Create Post</a>
+                    <a href="{{route('posts.create')}}" class="btn btn-primary btn-rounded float-right mr-3" style="margin-bottom: 20px">Create Post</a>
                     <a href="{{route('posts.index')}}" class="btn btn-warning btn-rounded float-right mr-2" style="margin-bottom: 20px">View Posts</a>
                     <div class="table-responsive mb-4 mt-4">
                         <table id="zero-config" class="table table-hover" style="width:100%">
@@ -38,12 +43,13 @@
                                 <td>{{$post->post_slug}}</td>
                                 <td>{{$post->user->name}}</td>
                                 <td>
-                                    <a type="button" href="{{route('posts.undoDelete',$post->id)}}" class="btn btn-primary" style="display: inline-block">UndoDelete</a>
+                                    <a type="button" href="{{route('posts.undoDelete',$post->id)}}" class="btn btn-primary" style="display: inline-block">Undo Delete</a>
+                                    <a type="button" href="{{route('posts.permaDelete',$post->id)}}" class="btn btn-danger" style="display: inline-block">Delete Permanently</a>
                                 </td>
                                                             
                             @endforeach
                             </tbody>
-                        </table>
+                        </table>s
                     </div>
                 </div>
             </div>

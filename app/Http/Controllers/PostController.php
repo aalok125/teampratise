@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\Post\PostStoreRequest;
+use App\Http\Requests\Post\PostUpdateRequest;
 use App\Models\Post;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -42,8 +43,8 @@ class PostController extends Controller
 
     public function update(PostUpdateRequest $request, Post $post){
         $post->post_title =  $request->get('post_title');
-        $post->post_slug = str_slug ($request->get('post_title'));
-        $post->post_status = $request->get('status');
+        $post->post_slug = Str::slug($request->get('post_title'));
+        $post->post_status = $request->get('post_status');
         $post->is_published = $request->get('is_published');
         $post->post_content = $request->get('post_content');
         $post->user_id = 1;
@@ -69,7 +70,14 @@ class PostController extends Controller
 
     public function trashPost(){
         $trashPosts = Post::onlyTrashed()->get();
-        
         return view('backend.posts.trash',compact('trashPosts'));
+    }
+
+    public function permanentDelete($id){
+        Post::onlyTrashed()
+                ->findOrFail($id)
+                ->forceDelete();
+        Session::flash('delete.msg','Post Deleted Permanently.');
+        return redirect()->route('posts.trash');
     }
 }

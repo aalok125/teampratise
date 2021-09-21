@@ -33,8 +33,7 @@ class PostUpdateRequest extends FormRequest
     {
         return [
             'post_title.required' => 'Please Enter Post Title',
-            
-            'post_content' => 'Please Enter Post Contents',
+            'post_content.required' => 'Please Enter Post Contents',
 
         ];
     }

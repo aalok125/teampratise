@@ -1,18 +1,24 @@
 @extends('Backend.layouts.master')
 @push('backend-stylesheet')
     <!-- BEGIN PAGE LEVEL STYLES -->
-    <!-- BEGIN PAGE LEVEL STYLES -->
+ 
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">
     <link href="{{asset('backend/plugins/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- END PAGE LEVEL STYLES -->
-    <!-- END PAGE LEVEL STYLES -->
+    <link href="{{ asset('backend/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('backend/plugins/animate/animate.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('backend/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+
+
 @endpush
 @section('content')
 <div class="page-header">
-    <div class="page-title">
-        <h3>Posts</h3>
-    </div>
+    <nav class="breadcrumb-one" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+            <li class="breadcrumb-item active">Posts</li>
+        </ol>
+    </nav>
 </div>
 <div id="content" class="main-content">
     <div class="layout-px-spacing">
@@ -22,7 +28,7 @@
                     <a href="{{route('posts.create')}}" class="btn btn-warning btn-rounded float-right mr-3 " style="margin-bottom: 20px">Create Post</a>
                     <a href="{{route('posts.trash')}}" class="btn btn-warning  btn-rounded float-right mr-2 " style="margin-bottom: 20px">Trash Post</a>
                     <div class="table-responsive mb-4 mt-4">
-                        <table id="zero-config" class="table table-hover" style="width:100%">
+                        <table id="zero-config" class="table table-hover " style="width:100%;">
                             <thead>
                             <tr>
                                 <th>Post Title</th>
@@ -53,12 +59,34 @@
                                 <td>{{ $post->user->name}}</td>
                                  
                                 <td>
+                                    <a type="button" class="btn btn-primary" style="display: inline-block" data-target="#showPost{{$post->id}}" data-toggle="modal">Show</a>
                                     <a type="button" href="{{route('posts.edit',$post->id)}}" class="btn btn-primary" style="display: inline-block">Edit</a>
                                     <a type="button" href="{{route('posts.delete',$post->id)}}" class="btn btn-danger" style="display: inline-block">Delete</a>
                                 </td>
+
+                                <!-- Post Show Modal -->
+                                <div class="modal animated zoomInUp" id="showPost{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="showPostLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="showPostLabel">{{  $post->post_title}}</h5>
+                                                <p>Created Date : {{ $post->created_at->format('Y-m-d')}}</p>
+                                                
+                                            </div>
+                                            <div class="modal-body">
+                                           
+                                                <p class="modal-text">{{ $post->post_content}}</p>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <p>Created By : {{ $post->user->name}}</p>
+                                                <a type="button" href="{{route('posts.edit',$post->id)}}" class="btn btn-primary">Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Post Show Modal -->
                               
                                 </tr>
-                                
                             @endforeach
                             </tbody>
                         </table>
@@ -68,6 +96,11 @@
         </div>
     </div>
 </div>
+
+
+
+
+
 @endsection
 @push('backend-scripts')
 
