@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/table/datatable/dt-global_style.css')}}">
     <link href="{{asset('backend/plugins/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
+    <link href="{{asset ('backend/plugins/sweetalerts/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset ('backend/plugins/sweetalerts/sweetalert.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset ('backend/assets/css/components/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
 @endpush
 @section('content')
@@ -14,7 +17,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{route('posts.index')}}">Posts</a></li>
-            <li class="breadcrumb-item active">Trash Posts</li>
+            <li class="breadcrumb-item {{ (request()->routeIs('posts.trash')) ? 'active' : '' }}">Trash Posts</li>
             
         </ol>
     </nav>
@@ -44,12 +47,12 @@
                                 <td>{{$post->user->name}}</td>
                                 <td>
                                     <a type="button" href="{{route('posts.undoDelete',$post->id)}}" class="btn btn-primary" style="display: inline-block">Undo Delete</a>
-                                    <a type="button" href="{{route('posts.permaDelete',$post->id)}}" class="btn btn-danger" style="display: inline-block">Delete Permanently</a>
+                                    <a type="button" data-id="{{ $post->id }}" class="btn btn-danger permaDeletePost" style="display: inline-block">Delete Permanently</a>
                                 </td>
                                                             
                             @endforeach
                             </tbody>
-                        </table>s
+                        </table>
                     </div>
                 </div>
             </div>
@@ -60,6 +63,9 @@
 @push('backend-scripts')
 
         <script src="{{asset('backend/plugins/table/datatable/datatables.js')}}"></script>
+        <script src="{{asset('backend/plugins/sweetalerts/promise-polyfill.js')}}"></script>
+        <script src="{{asset('backend/plugins/sweetalerts/sweetalert2.min.js')}}"></script>
+        <script src="{{asset('backend/plugins/sweetalerts/custom-sweetalert.js')}}"></script>
         
         
         <script>
@@ -75,6 +81,48 @@
                 "lengthMenu": [7, 10, 20, 50],
                 "pageLength": 7
             });
+        </script>
+        <script>
+            $(document).ready(function()
+            {
+                $('.permaDeletePost').on('click',function (e)
+                {    e.preventDefault();
+                    var id = $(this).attr('data-id');
+                    var permaDeleteUrl = "{{route ('posts.permaDelete',':id')}}";
+                    permaDeleteUrl = permaDeleteUrl.replace(":id",id);
+                    swal(
+                    {
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Delete',
+                        padding: '2em',
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }).then(function(result) 
+                    {
+                        if (result.value) {
+                            $.ajax(
+                            {
+                                url: permaDeleteUrl, 
+                                success: function(response) 
+                                {
+                                    if (response.success === true) {
+                                        swal("Done!", response.message, "success").then
+                                            (function(){ 
+                                            location.reload();
+                                        });
+                                    } else {
+                                        swal("Error!", response.message, "error");
+                                    }
+                                }   
+                            } );
+                        }
+                    });
+                });
+            });
+             
         </script>
 
         

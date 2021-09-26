@@ -8,6 +8,9 @@
     <link href="{{ asset('backend/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('backend/plugins/animate/animate.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('backend/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset ('backend/plugins/sweetalerts/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset ('backend/plugins/sweetalerts/sweetalert.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset ('backend/assets/css/components/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
 
 
 @endpush
@@ -16,7 +19,7 @@
     <nav class="breadcrumb-one" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-            <li class="breadcrumb-item active">Posts</li>
+            <li class="breadcrumb-item {{ (request()->routeIs('posts.index')) ? 'active' : '' }}">Posts</li>
         </ol>
     </nav>
 </div>
@@ -25,14 +28,15 @@
         <div class="row layout-top-spacing" id="cancel-row">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <a href="{{route('posts.create')}}" class="btn btn-warning btn-rounded float-right mr-3 " style="margin-bottom: 20px">Create Post</a>
+                    <a href="{{route('posts.create')}}" class="btn btn-primary btn-rounded float-right mr-3 " style="margin-bottom: 20px">Create Post</a>
                     <a href="{{route('posts.trash')}}" class="btn btn-warning  btn-rounded float-right mr-2 " style="margin-bottom: 20px">Trash Post</a>
                     <div class="table-responsive mb-4 mt-4">
                         <table id="zero-config" class="table table-hover " style="width:100%;">
                             <thead>
                             <tr>
-                                <th>Post Title</th>
-                                <th>Post Slug</th>
+                                <th>Thumbnail</th>
+                                <th style="width:150px;">Post Title</th>
+                                <th style="width:150px;">Post Slug</th>
                                 <th>Status</th>
                                 <th>Published</th>
                                 <th>Created By</th>
@@ -42,6 +46,7 @@
                             <tbody>
                             @foreach($posts as $post)
                             <tr>
+                                <td> <img src="{{asset($post->getThumbnail())}}" alt="Girl in a jacket" > </td>
                                 <td>{{$post->post_title}}</td>
                                 <td>{{$post->post_slug}}</td>
                                 <td>@if($post->post_status == 1)
@@ -59,34 +64,11 @@
                                 <td>{{ $post->user->name}}</td>
                                  
                                 <td>
-                                    <a type="button" class="btn btn-primary" style="display: inline-block" data-target="#showPost{{$post->id}}" data-toggle="modal">Show</a>
+                                    <a type="button" data-id = "{{$post->id}}" class="btn btn-secondary showPost" style="display: inline-block" data-target="#showPost{{$post->id}}" data-toggle="modal">Show</a>
                                     <a type="button" href="{{route('posts.edit',$post->id)}}" class="btn btn-primary" style="display: inline-block">Edit</a>
-                                    <a type="button" href="{{route('posts.delete',$post->id)}}" class="btn btn-danger" style="display: inline-block">Delete</a>
-                                </td>
-
-                                <!-- Post Show Modal -->
-                                <div class="modal animated zoomInUp" id="showPost{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="showPostLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="showPostLabel">{{  $post->post_title}}</h5>
-                                                <p>Created Date : {{ $post->created_at->format('Y-m-d')}}</p>
-                                                
-                                            </div>
-                                            <div class="modal-body">
-                                           
-                                                <p class="modal-text">{{ $post->post_content}}</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <p>Created By : {{ $post->user->name}}</p>
-                                                <a type="button" href="{{route('posts.edit',$post->id)}}" class="btn btn-primary">Edit</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Post Show Modal -->
-                              
-                                </tr>
+                                    <a type="button"  data-id="{{$post->id}}" class="btn btn-danger deletePost" style="display: inline-block">Delete</a>
+                                </td>                              
+                            </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -96,15 +78,18 @@
         </div>
     </div>
 </div>
-
-
-
+<div class="modal animated zoomInUp" id="showPostModal" tabindex="-1" role="dialog" aria-labelledby="showPostLabel" aria-hidden="true">
+   
+</div>
 
 
 @endsection
 @push('backend-scripts')
 
         <script src="{{asset('backend/plugins/table/datatable/datatables.js')}}"></script>
+        <script src="{{asset('backend/plugins/sweetalerts/promise-polyfill.js')}}"></script>
+        <script src="{{asset('backend/plugins/sweetalerts/sweetalert2.min.js')}}"></script>
+        <script src="{{asset('backend/plugins/sweetalerts/custom-sweetalert.js')}}"></script>
         
         
         <script>
@@ -120,6 +105,69 @@
                 "lengthMenu": [7, 10, 20, 50],
                 "pageLength": 7
             });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('.showPost').on('click',function()
+                {
+                    var id = $(this).attr('data-id');
+                    var viewUrl = "{{route('posts.show',':id')}}";
+                    viewUrl = viewUrl.replace(":id",id);
+                    $.ajax(
+                    {
+                        url: viewUrl, 
+                        success:function(post) 
+                        {
+                            $(".zoomInUp").modal('show');
+                            $(".zoomInUp").html(post);
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function ()
+            {
+                $('.deletePost').on('click',function (e)
+                {    e.preventDefault();
+                    var id = $(this).attr('data-id');
+                    var deleteUrl = "{{route ('posts.delete',':id')}}";
+                    deleteUrl = deleteUrl.replace(":id",id);
+                    swal(
+                    {
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Delete',
+                        padding: '2em',
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }).then(function(result) 
+                    {
+                        if (result.value) {
+                            $.ajax(
+                            {
+                                url: deleteUrl, 
+                                success: function(response) 
+                                {
+                                    if (response.success === true) {
+                                        swal("Done!", response.message, "success").then
+                                            (function(){ 
+                                            location.reload();
+                                        });
+                                    } else {
+                                        swal("Error!", response.message, "error");
+                                    }
+                                }   
+                            } );
+                        }
+                    });
+                });
+            });
+             
         </script>
 
         

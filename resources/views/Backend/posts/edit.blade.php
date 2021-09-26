@@ -3,6 +3,7 @@
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="{{asset('backend/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('backend/plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <!-- END PAGE LEVEL STYLES -->
 @endpush
 @section('content')
@@ -11,7 +12,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Dashboard</li>
             <li class="breadcrumb-item"><a href="{{route('posts.index')}}">Post</a></li>
-            <li class="breadcrumb-item active">Edit</li>
+            <li class="breadcrumb-item {{ (request()->routeIs('posts.edit')) ? 'active' : '' }}">Edit</li>
         </ol>
     </nav>
 </div>
@@ -45,7 +46,7 @@
                     <div class="form-row mb-12">
                         <div class="form-group col-md-12">
                             <label for="post_content">Post Content</label>
-                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="post_content">{{ $post->post_content}}</textarea>
+                           <textarea class="form-control" id="summernote" rows="4" name="post_content">{{ $post->post_content}}</textarea>
                             <div class="has-error"> 
                                 @error('post_content')
                                     <span class="text-danger">{{ $errors->first('post_content') }}</span>
@@ -90,6 +91,21 @@
                             @enderror 
                         </div>
                     </div>
+                    
+                    <div class="custom-file-container" data-upload-id="myFirstImage">
+                        <label>Upload Thumbnail<a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image"></a></label>
+                        <label class="custom-file-container__custom-file" >
+                            <input type="file" class="custom-file-container__custom-file__custom-file-input" accept="image/*" name="name">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                            <span class="custom-file-container__custom-file__custom-file-control"></span>
+                        </label>
+                        <div class="custom-file-container__image-preview"></div>
+                        <div class="has-error"> 
+                            @error('name')
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                            @enderror
+                        </div>
+                    </div>
                                      
                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                 </form>
@@ -102,12 +118,30 @@
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="{{asset('backend/assets/js/scrollspyNav.js')}}"></script>
     <script src="{{asset('backend/plugins/file-upload/file-upload-with-preview.min.js')}}"></script>
-
-    <script>
-        //First upload
-        var firstUpload = new FileUploadWithPreview('myFirstImage')
-        //Second upload
-        var secondUpload = new FileUploadWithPreview('mySecondImage')
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
+    <script>
+        //First upload 
+        @if(isset($post->postImage->name))
+            var importedBaseImage = "{{asset($post->getThumbnail())}}";
+            var firstUpload = new FileUploadWithPreview("myFirstImage",
+                {images:{
+                        baseImage:importedBaseImage,
+                    },
+                })
+        @else
+         var firstUpload = new FileUploadWithPreview('myFirstImage');
+         }  });
+        @endif
+        
+    </script>
+    <!-- Summer Note Js -->
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                tabsize: 1,
+                height: 150
+            });
+        });
+    </script>
 @endpush

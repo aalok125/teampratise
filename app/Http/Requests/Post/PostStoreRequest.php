@@ -26,6 +26,7 @@ class PostStoreRequest extends FormRequest
         return [
             'post_title' => 'required|string|unique:posts',
             'post_content' =>'required',
+            'name'  =>  'required|file|image|mimes:jpeg,png,gif,jpg|max:4096',
         ];
     }
 

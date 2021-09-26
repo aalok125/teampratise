@@ -1,5 +1,5 @@
 <?php
-
+use Carbon\Carbon;
 return [
 
     /*
@@ -52,6 +52,13 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'postThumbnail' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/upload/'.Carbon::now()->year.'/'.Carbon::now()->month.'/'),
+            'url' => '/storage/upload/'.Carbon::now()->year.'/'.Carbon::now()->month.'/',
             'visibility' => 'public',
         ],
 

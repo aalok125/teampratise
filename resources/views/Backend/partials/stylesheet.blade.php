@@ -16,6 +16,6 @@
   <link href="{{asset('backend/plugins/table/datatable/custom_dt_custom.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('backend/plugins/table/datatable/custom_dt_custom.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('backend/plugins/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
-  <link href="{{ asset('backend/assets/css/elements/miscellaneous.css')}}" rel="stylesheet" type="text/css" />
+  <link href="{{asset('backend/assets/css/elements/miscellaneous.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('backend/assets/css/elements/breadcrumb.css')}}" rel="stylesheet" type="text/css" />
 @stack('backend-stylesheet')

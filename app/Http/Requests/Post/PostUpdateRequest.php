@@ -26,6 +26,7 @@ class PostUpdateRequest extends FormRequest
         return [
             'post_title' => 'required|string',
             'post_content' =>'required',
+            'name'  =>  'required|file|image|mimes:jpeg,png,gif,jpg|max:4096',
         ];
     }
 
@@ -34,6 +35,7 @@ class PostUpdateRequest extends FormRequest
         return [
             'post_title.required' => 'Please Enter Post Title',
             'post_content.required' => 'Please Enter Post Contents',
+            'name.required' => 'Please Select Image',
 
         ];
     }

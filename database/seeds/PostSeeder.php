@@ -44,6 +44,22 @@ class PostSeeder extends Seeder
                 'post_content' => 'This is fourth test post.',
                 'user_id' => 1,
             ],
+            [
+                'post_title' => 'Test Post 5',
+                'post_slug' => 'test-post-5',
+                'post_status' => 1,
+                'is_published' =>1,
+                'post_content' => 'This is fifth test post.',
+                'user_id' => 1,
+            ],
+            [
+                'post_title' => 'Test Post 6',
+                'post_slug' => 'test-post-6',
+                'post_status' => 1,
+                'is_published' =>1,
+                'post_content' => 'This is sixth test post.',
+                'user_id' => 1,
+            ],
             
         ];
         DB::table('posts')->insert($posts);

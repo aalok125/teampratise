@@ -2,7 +2,8 @@
 @push('backend-stylesheet')
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="{{asset('backend/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('backend/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+    <link href="plugins/file-upload/file-upload-with-preview.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
     <link href="{{asset('backend/plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
@@ -14,7 +15,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
             <li class="breadcrumb-item"><a href= "{{route('posts.index')}}" >Posts</a></li>
-            <li class="breadcrumb-item active">Create Post</li>
+            <li class="breadcrumb-item {{ (request()->routeIs('posts.create')) ? 'active' : '' }}">Create Post</li>
         </ol>
     </nav>
 </div>
@@ -38,19 +39,16 @@
                             <label for="inputEmail4">Post Title</label>
                             <input type="text" class="form-control" id="inputEmail4" placeholder="Post Title" name="post_title" value="{{old ('post_title') }}">
                             @error('post_title')
-                            <div class="has-error">
-                                <span class="text-danger">{{$errors->first('post_title')}}</span>
-                            </div>
+                                <div class="has-error">
+                                    <span class="text-danger">{{$errors->first('post_title')}}</span>
+                                </div>
                             @enderror
                         </div>
-                         
-                            
-                        
                     </div>
                     <div class="form-row mb-12">
                         <div class="form-group col-md-12">
-                            <label for="inputEmail4">Post Content</label>
-                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="post_content" placeholder="Write Something about the post...">{{old ('post_content')}}</textarea>
+                            <label>Post Content</label>
+                           <textarea class="form-control" id="summernote" rows="4" name="post_content" placeholder="Write Something about the post...">{{old ('post_content')}}</textarea>
                             <div class="has-error"> 
                                 @error('post_content'))
                                     <span class="text-danger">{{ $errors->first('post_content') }}</span>
@@ -60,12 +58,12 @@
                     </div>
                      <div class="form-row mb-12">
                         <div class="form-group col-md-12">
-                            <label>Published</label>
-                            <div class="custom-control custom-radio">
+                            <label>Status</label><br>
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="status" name="status" class="custom-control-input" value="1" checked>
                                 <label class="custom-control-label" for="status">Active</label>
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="status2" name="status" class="custom-control-input" value="0" >
                                 <label class="custom-control-label" for="status2">In Active</label>
                             </div>
@@ -79,12 +77,12 @@
                     </div>
                     <div class="form-row mb-12">
                         <div class="form-group col-md-12">
-                            <label>Published</label>
-                            <div class="custom-control custom-radio">
+                            <label>Published</label><br>
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="customRadio1" name="is_published" class="custom-control-input" value="1" checked>
                                 <label class="custom-control-label" for="customRadio1">Yes</label>
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="customRadio2" name="is_published" class="custom-control-input" value="0">
                                 <label class="custom-control-label" for="customRadio2">No</label>
                             </div>
@@ -92,6 +90,21 @@
                          <div class="has-error"> 
                             @error('is_published')
                                 <span class="text-danger">{{ $errors->first('is_published') }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="custom-file-container" data-upload-id="myFirstImage">
+                        <label>Upload Thumbnail<a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
+                        <label class="custom-file-container__custom-file" >
+                            <input type="file" class="custom-file-container__custom-file__custom-file-input" accept="image/*" name="name">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                            <span class="custom-file-container__custom-file__custom-file-control"></span>
+                        </label>
+                        <div class="custom-file-container__image-preview"></div>
+                        <div class="has-error"> 
+                            @error('name')
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
                             @enderror
                         </div>
                     </div>
@@ -107,12 +120,21 @@
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="{{asset('backend/assets/js/scrollspyNav.js')}}"></script>
     <script src="{{asset('backend/plugins/file-upload/file-upload-with-preview.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <script>
         //First upload
         var firstUpload = new FileUploadWithPreview('myFirstImage')
-        //Second upload
-        var secondUpload = new FileUploadWithPreview('mySecondImage')
     </script>
     <!-- END PAGE LEVEL PLUGINS -->
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                tabsize: 1,
+                height: 150
+            });
+           
+        });
+    </script>
+    
 @endpush
