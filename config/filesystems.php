@@ -55,12 +55,19 @@ return [
             'visibility' => 'public',
         ],
 
-        'postThumbnail' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/upload/'.Carbon::now()->year.'/'.Carbon::now()->month.'/'),
-            'url' => '/storage/upload/'.Carbon::now()->year.'/'.Carbon::now()->month.'/',
-            'visibility' => 'public',
-        ],
+        // 'file' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/public/upload/'.Carbon::now()->year.'/'.Carbon::now()->month.'/'),
+        //     'url' => '/storage/upload/'.Carbon::now()->year.'/'.Carbon::now()->month.'/',
+        //     'visibility' => 'public',
+        // ],
+        // 'getFile' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/public/'),
+        //     'url' => '/storage/',
+        //     'visibility' => 'public',
+        // ],
+
 
         's3' => [
             'driver' => 's3',

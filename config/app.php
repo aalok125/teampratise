@@ -173,9 +173,21 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        Post\Providers\PostServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Category\Providers\CategoryServiceProvider::class,
+        Image\Providers\ImageServiceProvider::class,
+        User\Providers\UserServiceProvider::class,
+        Auth\Providers\AuthServiceProvider::class,
+        Dashboard\Providers\DashboardServiceProvider::class,
+        Cart\Providers\CartServiceProvider::class,
+
+
 
     ],
 
@@ -229,6 +241,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
+
 
     ],
 
